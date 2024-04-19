@@ -1,7 +1,9 @@
 defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
 
-  def mount(_params, _session, socket) do
+  alias Pento.Accounts
+
+  def mount(_params, session, socket) do
     {
       :ok,
       assign(
@@ -9,7 +11,8 @@ defmodule PentoWeb.WrongLive do
         score: 0,
         message: "Make a guess",
         time: time(),
-        answer: start_number()
+        answer: start_number(),
+        session_id: session["live_socket_id"],
       )
     }
   end
@@ -34,6 +37,10 @@ defmodule PentoWeb.WrongLive do
         </.link>
       <% end %>
     </h2>
+    <br/>
+    <pre>
+      <%= @session_id %>
+    </pre>
     """
   end
 
