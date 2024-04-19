@@ -108,6 +108,20 @@ defmodule Pento.Accounts do
     User.email_changeset(user, attrs, validate_email: false)
   end
 
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for changing the user username.
+
+  ## Examples
+
+      iex> change_user_username(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+    def change_user_username(user, attrs \\ %{}) do
+      User.username_changeset(user, attrs)
+    end
+
   @doc """
   Emulates that the email will change without actually changing
   it in the database.
