@@ -1,4 +1,4 @@
-<.header>
+<.header >
   Listing Products
   <:actions>
     <.link patch={~p"/products/new"}>
@@ -6,6 +6,7 @@
     </.link>
   </:actions>
 </.header>
+<%!-- <pre><%= inspect assigns, pretty: true %></pre> --%>
 
 <.table
   id="products"
@@ -14,7 +15,7 @@
 >
   <:col :let={{_id, product}} label="Name"><%= product.name %></:col>
   <:col :let={{_id, product}} label="Description"><%= product.description %></:col>
-  <:col :let={{_id, product}} label="Unit price"><%= product.unit_price %></:col>
+  <:col :let={{_id, product}} label="Unit Price"><%= product.unit_price %></:col>
   <:col :let={{_id, product}} label="Sku"><%= product.sku %></:col>
   <:action :let={{_id, product}}>
     <div class="sr-only">
