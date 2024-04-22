@@ -1,5 +1,6 @@
 <.header>
   Listing Products
+  <h1 class=" font-bold"><%= @greeting %></h1>
   <:actions>
     <.link patch={~p"/products/new"}>
       <.button>New Product</.button>
@@ -32,7 +33,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/products")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="product-modal"
+  show
+  on_cancel={JS.patch(~p"/products")}
+>
   <.live_component
     module={PentoWeb.ProductLive.FormComponent}
     id={@product.id || :new}
