@@ -7,7 +7,6 @@ defmodule Pento.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
-    field :username, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -37,10 +36,9 @@ defmodule Pento.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :username])
+    |> cast(attrs, [:email, :password])
     |> validate_email(opts)
     |> validate_password(opts)
-    |> validate_username(opts)
   end
 
   defp validate_email(changeset, opts) do
@@ -105,21 +103,6 @@ defmodule Pento.Accounts.User do
   end
 
   @doc """
-  A user changeset for changing the username.
-
-  It requires the username to change otherwise an error is added.
-  """
-  def username_changeset(user, attrs, opts \\ []) do
-    user
-    |> cast(attrs, [:username])
-    |> validate_username(opts)
-    |> case do
-      %{changes: %{username: _}} = changeset -> changeset
-      %{} = changeset -> add_error(changeset, :username, "did not change")
-    end
-  end
-
-  @doc """
   A user changeset for changing the password.
 
   ## Options
@@ -170,26 +153,6 @@ defmodule Pento.Accounts.User do
       changeset
     else
       add_error(changeset, :current_password, "is not valid")
-    end
-  end
-
-  @doc """
-  Validates username is unique and proper shape
-  """
-  def validate_username(changeset, opts) do
-    changeset
-    |> validate_required([:username])
-    |> validate_length(:username, min: 5, max: 160)
-    |> maybe_validate_unique_username(opts)
-  end
-
-  defp maybe_validate_unique_username(changeset, opts) do
-    if Keyword.get(opts, :validate_username, true) do
-      changeset
-      |> unsafe_validate_unique(:username, Pento.Repo)
-      |> unique_constraint(:username)
-    else
-      changeset
     end
   end
 end

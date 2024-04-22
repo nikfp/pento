@@ -183,7 +183,6 @@ defmodule PentoWeb.CoreComponents do
 
       <.simple_form for={@form} phx-change="validate" phx-submit="save">
         <.input field={@form[:email]} label="Email"/>
-        <.input field={@form[:username]} label="Username" />
         <:actions>
           <.button>Save</.button>
         </:actions>
@@ -449,7 +448,6 @@ defmodule PentoWeb.CoreComponents do
 
       <.table id="users" rows={@users}>
         <:col :let={user} label="id"><%= user.id %></:col>
-        <:col :let={user} label="username"><%= user.username %></:col>
       </.table>
   """
   attr :id, :string, required: true

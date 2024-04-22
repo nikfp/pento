@@ -35,28 +35,6 @@ defmodule PentoWeb.UserSettingsLive do
       </div>
       <div>
         <.simple_form
-          for={@username_form}
-          id="username_form"
-          phx-submit="update_username"
-          phx-change="validate_username"
-        >
-          <.input field={@username_form[:username]} type="text" label="User Name" required />
-          <.input
-            field={@username_form[:current_password]}
-            name="current_password"
-            id="current_password_for_username"
-            type="password"
-            label="Current password"
-            value={@username_form_current_password}
-            required
-          />
-          <:actions>
-            <.button phx-disable-with="Changing...">Change Username</.button>
-          </:actions>
-        </.simple_form>
-      </div>
-      <div>
-        <.simple_form
           for={@password_form}
           id="password_form"
           action={~p"/users/log_in?_action=password_updated"}
@@ -112,7 +90,6 @@ defmodule PentoWeb.UserSettingsLive do
     user = socket.assigns.current_user
     email_changeset = Accounts.change_user_email(user)
     password_changeset = Accounts.change_user_password(user)
-    username_changeset = Accounts.change_user_username(user)
 
     socket =
       socket
@@ -122,8 +99,6 @@ defmodule PentoWeb.UserSettingsLive do
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
       |> assign(:trigger_submit, false)
-      |> assign(:username_form, to_form(username_changeset))
-      |> assign(:username_form_current_password, nil)
 
     {:ok, socket}
   end
@@ -189,5 +164,4 @@ defmodule PentoWeb.UserSettingsLive do
         {:noreply, assign(socket, password_form: to_form(changeset))}
     end
   end
-  # TODO - add handlers for username update
 end
