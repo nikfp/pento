@@ -1,5 +1,9 @@
 <section>
-  <Component.hero content="Survey" >
-    Please take our survey!
+  <Component.hero content="Survey">
+    <%= if @demographic do %>
+      <DemographicLive.Show.detail demographic={@demographic} />
+    <% else %>
+      <h2>Demographic form coming soon!</h2>
+    <% end %>
   </Component.hero>
 </section>
