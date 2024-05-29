@@ -1,6 +1,6 @@
 <section>
   <Component.hero content="Survey">
-    <%= if @demographic do %>
+    <%= if !@demographic do %>
       <DemographicLive.Show.detail demographic={@demographic} />
     <% else %>
       <.live_component
