@@ -19,4 +19,4 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 ## Where the heck are we? 
 
-* page 210 of the guide is where we are
+* page 221 of the guide is where we are
